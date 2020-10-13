@@ -2,9 +2,10 @@ import tensorflow as tf
 import numpy as np
 import src.DCGAN as network, src.UNetGAN as UNET_GAN, src.util as util
 import matplotlib.pyplot as plt
+import os
 
-
-basePath = "/scratch/cai/UNet-ResWDCGAN/"
+basePath = os.getcwd()
+# basePath = "/scratch/cai/UNet-ResWDCGAN/"
 Z_dim = 128
 
 Z = tf.placeholder(tf.float32, [None, Z_dim])
@@ -17,7 +18,7 @@ with tf.Session() as sess:
     saver = tf.train.Saver()
     sess.run(tf.global_variables_initializer())
 
-    saver.restore(sess, basePath + "checkpoints/ckpt-AE-101250")
+    saver.restore(sess, basePath + "\\checkpoints\\ckpt-AE-101250")
     #saver.restore(sess, basePath + "checkpoints-mel/ckpt-AE-88500")
 
     images, fullImg = [], []
@@ -31,5 +32,5 @@ with tf.Session() as sess:
     print(images.shape)
     print(fullImg.shape)
 
-    util.saveImages(basePath + "generated/TEST-" + str(0), images)
-    util.saveImages(basePath + "generated/TEST-AE-" + str(0), fullImg)
+    util.saveImages(basePath + "\\generated\\TEST-" + str(0), images)
+    util.saveImages(basePath + "\\generated\\TEST-AE-" + str(0), fullImg)
